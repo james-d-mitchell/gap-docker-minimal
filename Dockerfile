@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-ENV GAP_VERSION 4.9.3
+ENV GAP_VERSION 4.10.2
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
 
