@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-ENV GAP_VERSION 4.12.0
+ENV GAP_VERSION 4.12.1
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
 
@@ -31,10 +31,13 @@ RUN    mkdir -p /home/gap/inst \
     && tar xvzf v1.3.tar.gz \
     && rm v1.3.tar.gz \
     && mv PackageManager-1.3 /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && echo "LoadPackage(\"PackageManager\"); UpdatePackage(\"PackageManager\", false); if not InstallPackage(\"GAPDoc\"); then QuitGap(1); fi; if not InstallPackage(\"primgrp\") then QuitGap(1); fi; if not InstallPackage(\"smallgrp\") then QuitGap(1); fi; if not InstallPackage(\"transgrp\") then QuitGap(1); fi; QUIT;" | bin/gap --bare || exit 1 \
+    && echo "LoadPackage(\"PackageManager\"); UpdatePackage(\"PackageManager\", false); if not InstallRequiredPackages(); then QuitGap(1); fi; QuitGap(0);" | bin/gap --bare || exit 1 \
     && mv /root/.gap/ /home/gap/ \
+    && mv /home/gap/.gap/pkg/* /home/gap/inst/gap-${GAP_VERSION}/pkg \ 
     && chown -R gap:gap /home/gap/inst \
     && chown -R gap:gap /home/gap/.gap 
+
+# Line 36 can be deleted when we have GAP 4.12.2 or 4.13.0
 
 # Set up new user and home directory in environment.
 # Note that WORKDIR will not expand environment variables in docker versions < 1.3.1.
