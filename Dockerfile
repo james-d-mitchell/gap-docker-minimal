@@ -1,6 +1,7 @@
-FROM ubuntu:focal
+FROM ubuntu:latest
 
-ENV GAP_VERSION 4.12.1
+ENV GAP_VERSION 4.12.2
+ENV PAC_MAN_VERSION 1.4.1
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
 
@@ -27,11 +28,11 @@ RUN    mkdir -p /home/gap/inst \
     && make \
     && cp bin/gap.sh bin/gap \
     && mkdir -p /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && curl -L -O https://github.com/gap-packages/PackageManager/archive/v1.3.tar.gz \
-    && tar xvzf v1.3.tar.gz \
-    && rm v1.3.tar.gz \
-    && mv PackageManager-1.3 /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && echo "LoadPackage(\"PackageManager\"); UpdatePackage(\"PackageManager\", false); if not InstallRequiredPackages(); then QuitGap(1); fi; QuitGap(0);" | bin/gap --bare || exit 1 \
+    && curl -L -O https://github.com/gap-packages/PackageManager/releases/download/v${PAC_MAN_VERSION}/PackageManager-${PAC_MAN_VERSION}.tar.gz \
+    && tar xvzf PackageManager-${PAC_MAN_VERSION}.tar.gz \
+    && rm PackageManager-${PAC_MAN_VERSION}.tar.gz \
+    && mv PackageManager-${PAC_MAN_VERSION} /home/gap/inst/gap-${GAP_VERSION}/pkg \
+    && echo "LoadPackage(\"PackageManager\"); UpdatePackage(\"PackageManager\", false); QuitGap(InstallRequiredPackages());" | bin/gap --bare || exit 1 \
     && mv /root/.gap/ /home/gap/ \
     && mv /home/gap/.gap/pkg/* /home/gap/inst/gap-${GAP_VERSION}/pkg \ 
     && chown -R gap:gap /home/gap/inst \
