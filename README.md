@@ -12,9 +12,9 @@ GAP packages by installing them in the `pkg` subdirectory of
 If you install Docker, you may run GAP in this container interactively.
 
 ```
-$ docker run --rm -i -t jamesdbmitchell/gap-docker-minimal:version-4.12.1
+$ docker run --rm -i -t jamesdbmitchell/gap-docker-minimal:version-4.13.0
 gap@59748b4d40a2:~$ gap -A -T
- *********   GAP 4.12.1 of 2022-10-20
+ *********   GAP 4.13.0 of YYYY-MM-DD
  *  GAP  *   https://www.gap-system.org
  *********   Architecture: x86_64-pc-linux-gnu-default64-kv8
  Configuration:  gmp 6.2.0, GASMAN, readline

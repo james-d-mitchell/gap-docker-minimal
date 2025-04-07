@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ENV GAP_VERSION 4.12.2
+ENV GAP_VERSION 4.13.0
 ENV PAC_MAN_VERSION 1.4.1
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
